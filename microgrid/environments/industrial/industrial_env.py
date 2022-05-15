@@ -56,7 +56,7 @@ class IndustrialEnv(gym.Env):
         self.building.reset()
         state = {
             'datetime': self.now,
-            'manager_signal': np.zeros(self.nb_pdt),
+            'manager_signal': np.zeros(self. pdt),
             'soc': self.battery.soc,
             'consumption_prevision': self.building.get_conso_prevision([self.now + i * self.delta_t for i in range(self.nb_pdt)]),
         }
