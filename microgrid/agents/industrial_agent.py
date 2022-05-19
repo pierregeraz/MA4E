@@ -20,9 +20,9 @@ class IndustrialAgent:
         conso_prevision= state.get("consumption_prevision")  # consomation prévue
         manager_prix = state.get("manager_signal")  # les prix
 
-        pmax = self.env.battery.pmax  # utilisÃ©
-        efficacite_batterie = self.env.battery.efficiency  # utilisÃ©
-        capacite_batterie = self.env.battery.capacity  # utilisÃ©
+        pmax = self.env.battery.pmax
+        efficacite_batterie = self.env.battery.efficiency
+        capacite_batterie = self.env.battery.capacity
 
         T = [t for t in range(24)]
         stock_init = state.battery.initial_soc  # chargement initial de la batterie
@@ -56,9 +56,10 @@ class IndustrialAgent:
 #fonction obj
         pb += pulp.lpSum([l_tot[t] * manager_prix[t] * delta_t for t in T])  # On somme les prix et on cherche à les minimiser
 
+        pb.solve()
         decision = np.zeros(24)
         for i in range(24):
-            decision[i] = l_batterie[i]
+            decision[i] = l_tot[i]
 
         return decision
 
